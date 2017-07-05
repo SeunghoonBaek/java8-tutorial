@@ -6,30 +6,24 @@ package com.winterbe.java8.samples.lambda;
 public class Interface1 {
 
     interface Formula {
-        double calculate(int a);
+        double calculate(int input);
 
-        default double sqrt(int a) {
-            return Math.sqrt(positive(a));
-        }
-
-        static int positive(int a) {
-            return a > 0 ? a : 0;
+        default double sqrt(int input) {
+            return Math.sqrt(input);
         }
     }
 
     public static void main(String[] args) {
         Formula formula1 = new Formula() {
             @Override
-            public double calculate(int a) {
-                return sqrt(a * 100);
+            public double calculate(int input) {
+                return sqrt(input * 100);
             }
         };
 
-        formula1.calculate(100);     // 100.0
-        formula1.sqrt(-23);          // 0.0
-        Formula.positive(-4);        // 0.0
+        int input = 4;
+        System.out.println(formula1.calculate(input));    // 20.0
+        System.out.println(formula1.sqrt(input));         // 2.0
 
-//        Formula formula2 = (a) -> sqrt( a * 100);
     }
-
 }

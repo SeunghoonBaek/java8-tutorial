@@ -1,8 +1,9 @@
-package com.winterbe.java8.samples.lambda;
+package src.com.winterbe.java8.samples.lambda;
 
 /**
 * @author Benjamin Winterberg
 */
+
 public class Person {
     public String firstName;
     public String lastName;

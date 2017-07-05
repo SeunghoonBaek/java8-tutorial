@@ -10,20 +10,26 @@ import java.util.concurrent.TimeUnit;
  */
 public class Streams3 {
 
-    public static final int MAX = 1000000;
+    public static List<String> generateUUIDList(){
 
-    public static void sortSequential() {
+        final int MAX = 1_000_000;
         List<String> values = new ArrayList<>(MAX);
         for (int i = 0; i < MAX; i++) {
             UUID uuid = UUID.randomUUID();
             values.add(uuid.toString());
         }
 
-        // sequential
+        return values;
+    }
 
+    public static void sortSequential(List<String> values) {
         long t0 = System.nanoTime();
 
-        long count = values.stream().sorted().count();
+        long count = values
+                        .stream()
+                        .sorted()
+                        .count();
+
         System.out.println(count);
 
         long t1 = System.nanoTime();
@@ -32,18 +38,14 @@ public class Streams3 {
         System.out.println(String.format("sequential sort took: %d ms", millis));
     }
 
-    public static void sortParallel() {
-        List<String> values = new ArrayList<>(MAX);
-        for (int i = 0; i < MAX; i++) {
-            UUID uuid = UUID.randomUUID();
-            values.add(uuid.toString());
-        }
-
-        // sequential
-
+    public static void sortParallel(List<String> values) {
         long t0 = System.nanoTime();
 
-        long count = values.parallelStream().sorted().count();
+        long count = values
+                        .parallelStream()
+                        .sorted()
+                        .count();
+
         System.out.println(count);
 
         long t1 = System.nanoTime();
@@ -53,7 +55,9 @@ public class Streams3 {
     }
 
     public static void main(String[] args) {
-        sortSequential();
-        sortParallel();
+        List<String> values = generateUUIDList();
+
+        sortSequential(values);
+        sortParallel(values);
     }
 }
